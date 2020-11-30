@@ -10,7 +10,8 @@
         <script src="jspsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
         <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css">
         <style>
-            .stimulus { font-size: 50px; }
+            .stimulus { font-size: 36px; }
+            .questions { font-size: 32px; }
             img {width: 80%;
                 height: 80%;
             }  
@@ -33,7 +34,12 @@
         var consent = {
             type: 'survey-multi-choice',
             questions: [
-            {prompt: 'You are about to participate in a food rating study. <BR> All stored data throughout the experiment is anonymized. <BR> Your identity is not associated to the findings of the study. <BR> The experiment will take about 30 minutes. If you would like to stop at some point, simply close this tab. <BR> Please remember to mute your phone and computer for the duration of the study.<BR> Before starting, please give your consent:', name: 'consent', options: agree, required:true}, 
+            {prompt: '<p class="stimulus"> You are about to participate in a financial decision making study. <BR><BR>' +
+            'All stored data throughout the experiment is anonymized.<BR><BR>' +
+            'Your identity is not associated to the findings of the study. <BR><BR>' +
+            'The experiment will take about 30 minutes. If you would like to stop at some point, simply close this tab. <BR><BR>' +
+            'Please remember to mute your phone and computer for the duration of the study.</p>' + 
+            '<p class="stimulus"> Before starting, please give your consent:</p>', name: 'consent', options: agree, required:true}, 
             ],
         };
 
@@ -46,23 +52,23 @@
         var likert_quest = {
             type: 'survey-likert',
             questions: [
-                {prompt: '<b>Please indicate the extent to which you agree or disagree with each of the following statements</b>', name: 'inst', labels:NaN, required: false},
-                {prompt: "The key to a good life is never feeling any pain", name: 'Q1', labels: scale, required: true}, 
-                {prompt: "I am quick to leave any situation that makes me feel uneasy", name: 'Q2', labels: scale, required: true},
-                {prompt: "When unpleasant memories come to me, I try to put them out of my mind", name: 'Q3', labels: scale, required: true},
-                {prompt: "I feel disconnected from my emotions", name: 'Q4', labels: scale, required: true},
-                {prompt: "I will not do something until I absolutely have to", name: 'Q5', labels: scale, required: true},
-                {prompt: "Fear or anxiety will not stop me from doing something important", name: 'Q6', labels: scale, required: true},
-                {prompt: "I would give up a lot not to feel bad", name: 'Q7', labels: scale, required: true},
-                {prompt: "I rarely do something if there is a chance that it will upset me", name: 'Q8', labels: scale, required: true},
-                {prompt: "It is hard for me to know what I am feeling", name: 'Q9', labels: scale, required: true},
-                {prompt: "I try to put off unpleasant tasks for as long as possible", name: 'Q10', labels: scale, required: true},
-                {prompt: "I go out of my way to avoid uncomfortable situations", name: 'Q11', labels: scale, required: true},
-                {prompt: "One of my big goals is to be free from painful emotions", name: 'Q12', labels: scale, required: true},
-                {prompt: "I work hard to keep out upsetting feelings.", name: 'Q13', labels: scale, required: true},
-                {prompt: "If I have any doubts about doing something, I just won’t do it", name: 'Q14', labels: scale, required: true},
-                {prompt: "Pain always leads to suffering", name: 'Q15', labels: scale, required: true},
-                {prompt: "<b>On a scale from 1 to 10, how math anxious are you?</b>", name: 'SIMA', labels: scale_10, required: true}
+                {prompt: '<p class="questions"><b>Please indicate the extent to which you agree or disagree with each of the following statements</b></p>', name: 'inst', labels:NaN, required: false},
+                {prompt: '<p class="questions">The key to a good life is never feeling any pain</p>', name: 'Q1', labels: scale, required: true}, 
+                {prompt: '<p class="questions">I am quick to leave any situation that makes me feel uneasy</p>', name: 'Q2', labels: scale, required: true},
+                {prompt: '<p class="questions">When unpleasant memories come to me, I try to put them out of my mind</p>', name: 'Q3', labels: scale, required: true},
+                {prompt: '<p class="questions">I feel disconnected from my emotions</p>', name: 'Q4', labels: scale, required: true},
+                {prompt: '<p class="questions">I will not do something until I absolutely have to</p>', name: 'Q5', labels: scale, required: true},
+                {prompt: '<p class="questions">Fear or anxiety will not stop me from doing something important</p>', name: 'Q6', labels: scale, required: true},
+                {prompt: '<p class="questions">I would give up a lot not to feel bad</p>', name: 'Q7', labels: scale, required: true},
+                {prompt: '<p class="questions">I rarely do something if there is a chance that it will upset me</p>', name: 'Q8', labels: scale, required: true},
+                {prompt: '<p class="questions">It is hard for me to know what I am feeling</p>', name: 'Q9', labels: scale, required: true},
+                {prompt: '<p class="questions">I try to put off unpleasant tasks for as long as possible</p>', name: 'Q10', labels: scale, required: true},
+                {prompt: '<p class="questions">I go out of my way to avoid uncomfortable situations</p>', name: 'Q11', labels: scale, required: true},
+                {prompt: '<p class="questions">One of my big goals is to be free from painful emotions</p>', name: 'Q12', labels: scale, required: true},
+                {prompt: '<p class="questions">I work hard to keep out upsetting feelings</p>', name: 'Q13', labels: scale, required: true},
+                {prompt: '<p class="questions">If I have any doubts about doing something, I just won’t do it</p>', name: 'Q14', labels: scale, required: true},
+                {prompt: '<p class="questions">Pain always leads to suffering</p>', name: 'Q15', labels: scale, required: true},
+                {prompt: '<p class="questions"><b>On a scale from 1 to 10, how math anxious are you?</b></p>', name: 'SIMA', labels: scale_10, required: true}
             ],
         };
 
@@ -342,8 +348,10 @@
                 on_finish: function(data){
                     if (data.key_press == 77){
                         data.response = 'right'
-                    } else {
+                    } else if (data.key_press == 90) {
                         data.response = 'left'
+                    } else {
+                        data.response = 'null'
                     }
                 },
                 post_trial_gap: function() {
