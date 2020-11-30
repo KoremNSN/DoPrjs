@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Yale financial decision making task</title>
+        <script src="jspsych-6.1.0/jspsych.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-choice.js"></script>
+        <script src="jspsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
+        <link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css">
+        <style>
+            .stimulus { font-size: 50px; }
+            img {width: 80%;
+                height: 80%;
+            }  
+        </style>
+    </head>
+
+    <body style="background-color:gray;">
+    </body>
+
+    <script>
+        var timeline = [];
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const ref = urlParams.get('ref');
+        jsPsych.data.addProperties({subject: ref});
+
+
+        var agree = ['agree']
+        var consent = {
+            type: 'survey-multi-choice',
+            questions: [
+            {prompt: 'You are about to participate in a food rating study. <BR> All stored data throughout the experiment is anonymized. <BR> Your identity is not associated to the findings of the study. <BR> The experiment will take about 30 minutes. If you would like to stop at some point, simply close this tab. <BR> Please remember to mute your phone and computer for the duration of the study.<BR> Before starting, please give your consent:', name: 'consent', options: agree, required:true}, 
+            ],
+        };
+
+        timeline.push(consent);
+        
+        var scale = ["Strongly Disagree","Moderately Disagree", "Slightly Disagree", "Slightly Agree", "Moderately Agree", "Strongly Agree"];
+        var scale_10 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
+
+        var likert_quest = {
+            type: 'survey-likert',
+            questions: [
+                {prompt: '<b>Please indicate the extent to which you agree or disagree with each of the following statements</b>', name: 'inst', labels:NaN, required: false},
+                {prompt: "The key to a good life is never feeling any pain", name: 'Q1', labels: scale, required: true}, 
+                {prompt: "I am quick to leave any situation that makes me feel uneasy", name: 'Q2', labels: scale, required: true},
+                {prompt: "When unpleasant memories come to me, I try to put them out of my mind", name: 'Q3', labels: scale, required: true},
+                {prompt: "I feel disconnected from my emotions", name: 'Q4', labels: scale, required: true},
+                {prompt: "I will not do something until I absolutely have to", name: 'Q5', labels: scale, required: true},
+                {prompt: "Fear or anxiety will not stop me from doing something important", name: 'Q6', labels: scale, required: true},
+                {prompt: "I would give up a lot not to feel bad", name: 'Q7', labels: scale, required: true},
+                {prompt: "I rarely do something if there is a chance that it will upset me", name: 'Q8', labels: scale, required: true},
+                {prompt: "It is hard for me to know what I am feeling", name: 'Q9', labels: scale, required: true},
+                {prompt: "I try to put off unpleasant tasks for as long as possible", name: 'Q10', labels: scale, required: true},
+                {prompt: "I go out of my way to avoid uncomfortable situations", name: 'Q11', labels: scale, required: true},
+                {prompt: "One of my big goals is to be free from painful emotions", name: 'Q12', labels: scale, required: true},
+                {prompt: "I work hard to keep out upsetting feelings.", name: 'Q13', labels: scale, required: true},
+                {prompt: "If I have any doubts about doing something, I just won’t do it", name: 'Q14', labels: scale, required: true},
+                {prompt: "Pain always leads to suffering", name: 'Q15', labels: scale, required: true},
+                {prompt: "<b>On a scale from 1 to 10, how math anxious are you?</b>", name: 'SIMA', labels: scale_10, required: true}
+            ],
+        };
+
+        timeline.push(likert_quest);
+
+        var instructions = {
+            type: 'html-keyboard-response',
+            stimulus: '<p class="stimulus">Each screen will show 2 opertuneties to get money</p>' +
+                '<p class="stimulus">Press "z" if you prefer the left option.</p>' + 
+                '<p class="stimulus">Press "m" if you prefer the right option.</p>' +
+                '<p class="stimulus">At the end of the experiment 1 of your response will be chosen and you will get to acctualized your choise</p>' +
+                '<p class="stimulus">Press any key to continue</p>',
+            choices: jsPsych.ALL_KEYS 
+        }
+
+        timeline.push(instructions);
+        
+        var images = ['img/1.png', 'img/2.png', 'img/3.png', 'img/4.png', 'img/5.png',
+            'img/6.png', 'img/7.png', 'img/8.png', 'img/9.png', 'img/10.png',
+            'img/11.png', 'img/12.png', 'img/13.png', 'img/14.png', 'img/15.png',
+            'img/16.png', 'img/17.png', 'img/18.png', 'img/19.png', 'img/20.png',
+            'img/21.png', 'img/22.png', 'img/23.png', 'img/24.png', 'img/25.png',
+            'img/26.png', 'img/27.png', 'img/28.png', 'img/29.png', 'img/30.png',
+            'img/31.png', 'img/32.png', 'img/33.png', 'img/34.png', 'img/35.png', 
+            'img/36.png', 'img/37.png', 'img/38.png', 'img/39.png', 'img/40.png',
+            'img/41.png', 'img/42.png', 'img/43.png', 'img/44.png', 'img/45.png',
+            'img/46.png', 'img/47.png', 'img/48.png', 'img/49.png', 'img/50.png',
+            'img/51.png', 'img/52.png', 'img/53.png', 'img/54.png', 'img/55.png',
+            'img/56.png', 'img/57.png', 'img/58.png', 'img/59.png', 'img/60.png',
+            'img/61.png', 	'img/62.png', 	'img/63.png', 	'img/64.png', 	'img/65.png',
+            'img/66.png', 	'img/67.png', 	'img/68.png', 	'img/69.png', 	'img/70.png',
+            'img/71.png', 	'img/72.png', 	'img/73.png', 	'img/74.png', 	'img/75.png',
+            'img/76.png', 	'img/77.png', 	'img/78.png', 	'img/79.png', 	'img/80.png',
+            'img/81.png', 	'img/82.png', 	'img/83.png', 	'img/84.png', 	'img/85.png',
+            'img/86.png', 	'img/87.png', 	'img/88.png', 	'img/89.png', 	'img/90.png',
+            'img/91.png', 	'img/92.png', 	'img/93.png', 	'img/94.png', 	'img/95.png',
+            'img/96.png', 	'img/97.png', 	'img/98.png', 	'img/99.png', 	'img/100.png',
+            'img/101.png', 	'img/102.png', 	'img/103.png', 	'img/104.png', 	'img/105.png',
+            'img/106.png', 	'img/107.png', 	'img/108.png', 	'img/109.png', 	'img/110.png',
+            'img/111.png', 	'img/112.png', 	'img/113.png', 	'img/114.png', 	'img/115.png',
+            'img/116.png', 	'img/117.png', 	'img/118.png', 	'img/119.png', 	'img/120.png',
+            'img/121.png', 	'img/122.png', 	'img/123.png', 	'img/124.png', 	'img/125.png',
+            'img/126.png', 	'img/127.png', 	'img/128.png', 	'img/129.png', 	'img/130.png',
+            'img/131.png', 	'img/132.png', 	'img/133.png', 	'img/134.png', 	'img/135.png',
+            'img/136.png', 	'img/137.png', 	'img/138.png', 	'img/139.png', 	'img/140.png',
+            'img/141.png', 	'img/142.png', 	'img/143.png', 	'img/144.png', 	'img/145.png',
+            'img/146.png', 	'img/147.png', 	'img/148.png', 	'img/149.png', 	'img/150.png',
+            'img/151.png', 	'img/152.png', 	'img/153.png', 	'img/154.png', 	'img/155.png',
+            'img/156.png', 	'img/157.png', 	'img/158.png', 	'img/159.png', 	'img/160.png',
+            'img/161.png', 	'img/162.png', 	'img/163.png', 	'img/164.png', 	'img/165.png',
+            'img/166.png', 	'img/167.png', 	'img/168.png', 	'img/169.png', 	'img/170.png',
+            'img/171.png', 	'img/172.png', 	'img/173.png', 	'img/174.png', 	'img/175.png',
+            'img/176.png', 	'img/177.png', 	'img/178.png', 	'img/179.png', 	'img/180.png',
+            'img/181.png', 	'img/182.png', 	'img/183.png', 	'img/184.png', 	'img/185.png',
+            'img/186.png', 	'img/187.png', 	'img/188.png', 	'img/189.png', 	'img/190.png',
+            'img/191.png', 	'img/192.png', 	'img/193.png', 	'img/194.png', 	'img/195.png',
+            'img/196.png', 	'img/197.png', 	'img/198.png', 	'img/199.png', 	'img/200.png',
+            'img/201.png', 	'img/202.png', 	'img/203.png', 	'img/204.png', 	'img/205.png',
+            'img/206.png']
+
+        var pic_bank = [
+            {stimulus: "img/1.png"},
+            {stimulus: "img/2.png"},
+            {stimulus: "img/3.png"},
+            {stimulus: "img/4.png"},
+            {stimulus: "img/5.png"},
+            {stimulus: "img/6.png"},
+            {stimulus: "img/7.png"},
+            {stimulus: "img/8.png"},
+            {stimulus: "img/9.png"},
+            {stimulus: "img/10.png"},
+            {stimulus: "img/11.png"},
+            {stimulus: "img/12.png"},
+            {stimulus: "img/13.png"},
+            {stimulus: "img/14.png"},
+            {stimulus: "img/15.png"},
+            {stimulus: "img/16.png"},
+            {stimulus: "img/17.png"},
+            {stimulus: "img/18.png"},
+            {stimulus: "img/19.png"},
+            {stimulus: "img/20.png"},
+            {stimulus: "img/21.png"},
+            {stimulus: "img/22.png"},
+            {stimulus: "img/23.png"},
+            {stimulus: "img/24.png"},
+            {stimulus: "img/25.png"},
+            {stimulus: "img/26.png"},
+            {stimulus: "img/27.png"},
+            {stimulus: "img/28.png"},
+            {stimulus: "img/29.png"},
+            {stimulus: "img/30.png"},
+            {stimulus: "img/31.png"},
+            {stimulus: "img/32.png"},
+            {stimulus: "img/33.png"},
+            {stimulus: "img/34.png"},
+            {stimulus: "img/35.png"},
+            {stimulus: "img/36.png"},
+            {stimulus: "img/37.png"},
+            {stimulus: "img/38.png"},
+            {stimulus: "img/39.png"},
+            {stimulus: "img/40.png"},
+            {stimulus: "img/41.png"},
+            {stimulus: "img/42.png"},
+            {stimulus: "img/43.png"},
+            {stimulus: "img/44.png"},
+            {stimulus: "img/45.png"},
+            {stimulus: "img/46.png"},
+            {stimulus: "img/47.png"},
+            {stimulus: "img/48.png"},
+            {stimulus: "img/49.png"},
+            {stimulus: "img/50.png"},
+            {stimulus: "img/51.png"},
+            {stimulus: "img/52.png"},
+            {stimulus: "img/53.png"},
+            {stimulus: "img/54.png"},
+            {stimulus: "img/55.png"},
+            {stimulus: "img/56.png"},
+            {stimulus: "img/57.png"},
+            {stimulus: "img/58.png"},
+            {stimulus: "img/59.png"},
+            {stimulus: "img/60.png"},
+            {stimulus: "img/61.png"},
+            {stimulus: "img/62.png"},
+            {stimulus: "img/63.png"},
+            {stimulus: "img/64.png"},
+            {stimulus: "img/65.png"},
+            {stimulus: "img/66.png"},
+            {stimulus: "img/67.png"},
+            {stimulus: "img/68.png"},
+            {stimulus: "img/69.png"},
+            {stimulus: "img/70.png"},
+            {stimulus: "img/71.png"},
+            {stimulus: "img/72.png"},
+            {stimulus: "img/73.png"},
+            {stimulus: "img/74.png"},
+            {stimulus: "img/75.png"},
+            {stimulus: "img/76.png"},
+            {stimulus: "img/77.png"},
+            {stimulus: "img/78.png"},
+            {stimulus: "img/79.png"},
+            {stimulus: "img/80.png"},
+            {stimulus: "img/81.png"},
+            {stimulus: "img/82.png"},
+            {stimulus: "img/83.png"},
+            {stimulus: "img/84.png"},
+            {stimulus: "img/85.png"},
+            {stimulus: "img/86.png"},
+            {stimulus: "img/87.png"},
+            {stimulus: "img/88.png"},
+            {stimulus: "img/89.png"},
+            {stimulus: "img/90.png"},
+            {stimulus: "img/91.png"},
+            {stimulus: "img/92.png"},
+            {stimulus: "img/93.png"},
+            {stimulus: "img/94.png"},
+            {stimulus: "img/95.png"},
+            {stimulus: "img/96.png"},
+            {stimulus: "img/97.png"},
+            {stimulus: "img/98.png"},
+            {stimulus: "img/99.png"},
+            {stimulus: "img/100.png"},
+            {stimulus: "img/101.png"},
+            {stimulus: "img/102.png"},
+            {stimulus: "img/103.png"},
+            {stimulus: "img/104.png"},
+            {stimulus: "img/105.png"},
+            {stimulus: "img/106.png"},
+            {stimulus: "img/107.png"},
+            {stimulus: "img/108.png"},
+            {stimulus: "img/109.png"},
+            {stimulus: "img/110.png"},
+            {stimulus: "img/111.png"},
+            {stimulus: "img/112.png"},
+            {stimulus: "img/113.png"},
+            {stimulus: "img/114.png"},
+            {stimulus: "img/115.png"},
+            {stimulus: "img/116.png"},
+            {stimulus: "img/117.png"},
+            {stimulus: "img/118.png"},
+            {stimulus: "img/119.png"},
+            {stimulus: "img/120.png"},
+            {stimulus: "img/121.png"},
+            {stimulus: "img/122.png"},
+            {stimulus: "img/123.png"},
+            {stimulus: "img/124.png"},
+            {stimulus: "img/125.png"},
+            {stimulus: "img/126.png"},
+            {stimulus: "img/127.png"},
+            {stimulus: "img/128.png"},
+            {stimulus: "img/129.png"},
+            {stimulus: "img/130.png"},
+            {stimulus: "img/131.png"},
+            {stimulus: "img/132.png"},
+            {stimulus: "img/133.png"},
+            {stimulus: "img/134.png"},
+            {stimulus: "img/135.png"},
+            {stimulus: "img/136.png"},
+            {stimulus: "img/137.png"},
+            {stimulus: "img/138.png"},
+            {stimulus: "img/139.png"},
+            {stimulus: "img/140.png"},
+            {stimulus: "img/141.png"},
+            {stimulus: "img/142.png"},
+            {stimulus: "img/143.png"},
+            {stimulus: "img/144.png"},
+            {stimulus: "img/145.png"},
+            {stimulus: "img/146.png"},
+            {stimulus: "img/147.png"},
+            {stimulus: "img/148.png"},
+            {stimulus: "img/149.png"},
+            {stimulus: "img/150.png"},
+            {stimulus: "img/151.png"},
+            {stimulus: "img/152.png"},
+            {stimulus: "img/153.png"},
+            {stimulus: "img/154.png"},
+            {stimulus: "img/155.png"},
+            {stimulus: "img/156.png"},
+            {stimulus: "img/157.png"},
+            {stimulus: "img/158.png"},
+            {stimulus: "img/159.png"},
+            {stimulus: "img/160.png"},
+            {stimulus: "img/161.png"},
+            {stimulus: "img/162.png"},
+            {stimulus: "img/163.png"},
+            {stimulus: "img/164.png"},
+            {stimulus: "img/165.png"},
+            {stimulus: "img/166.png"},
+            {stimulus: "img/167.png"},
+            {stimulus: "img/168.png"},
+            {stimulus: "img/169.png"},
+            {stimulus: "img/170.png"},
+            {stimulus: "img/171.png"},
+            {stimulus: "img/172.png"},
+            {stimulus: "img/173.png"},
+            {stimulus: "img/174.png"},
+            {stimulus: "img/175.png"},
+            {stimulus: "img/176.png"},
+            {stimulus: "img/177.png"},
+            {stimulus: "img/178.png"},
+            {stimulus: "img/179.png"},
+            {stimulus: "img/180.png"},
+            {stimulus: "img/181.png"},
+            {stimulus: "img/182.png"},
+            {stimulus: "img/183.png"},
+            {stimulus: "img/184.png"},
+            {stimulus: "img/185.png"},
+            {stimulus: "img/186.png"},
+            {stimulus: "img/187.png"},
+            {stimulus: "img/188.png"},
+            {stimulus: "img/189.png"},
+            {stimulus: "img/190.png"},
+            {stimulus: "img/191.png"},
+            {stimulus: "img/192.png"},
+            {stimulus: "img/193.png"},
+            {stimulus: "img/194.png"},
+            {stimulus: "img/195.png"},
+            {stimulus: "img/196.png"},
+            {stimulus: "img/197.png"},
+            {stimulus: "img/198.png"},
+            {stimulus: "img/199.png"},
+            {stimulus: "img/200.png"},
+            {stimulus: "img/201.png"},
+            {stimulus: "img/202.png"},
+            {stimulus: "img/203.png"},
+            {stimulus: "img/204.png"},
+            {stimulus: "img/205.png"},
+            {stimulus: "img/206.png"}
+        ]
+
+        var trial = {
+            timeline: [{
+                type: 'image-keyboard-response',
+                choices: ['m', 'z'],
+                trial_duration: 10000,
+                stimulus: jsPsych.timelineVariable('stimulus'),
+                data: jsPsych.timelineVariable('stimulus'),
+                on_finish: function(data){
+                    if (data.key_press == 77){
+                        data.response = 'right'
+                    } else {
+                        data.response = 'left'
+                    }
+                },
+                post_trial_gap: function() {
+                    return Math.floor(Math.random() * 250) + 500;
+                }
+            }],
+            timeline_variables: pic_bank,
+            randomize_order: true
+        };
+
+        timeline.push(trial)
+
+        var goodbye = {
+            type: 'html-keyboard-response',
+            stimulus: '<p class="stimulus">Thank you for your participation</p>' +
+                '<p class="stimulus">Press any key to complete the</p>',
+            choices: jsPsych.ALL_KEYS 
+        }
+
+        timeline.push(goodbye);
+
+        function saveData(name, data){
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'save_data.php'); // 'write_data.php' is the path to the php file described above.
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({filename: name, filedata: data}));
+        }
+
+
+
+        jsPsych.init({
+            preload_images: images,
+            timeline: timeline,
+            on_finish: function(){ saveData(ref + '_DM', jsPsych.data.get().csv()); }
+        });
+    </script>
+
+</html>
